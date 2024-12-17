@@ -8,8 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -26,7 +28,7 @@ public class ResponseUserDto {
 
     private String nickName;
 
-    private Set<Hobby> hobbies ;
+    private Set<String> hobbies ;
 
     private String  profileImage;
 
@@ -38,7 +40,7 @@ public class ResponseUserDto {
         this.userGender = user.getUserGender();
         this.userName = user.getUserName();
         this.nickName = user.getNickName();
-        this.hobbies = user.getHobbies();
+        this.hobbies = Arrays.stream(user.getHobbies().split(",")).collect(Collectors.toSet());
         this.profileImage = user.getProfileImage();
         this.region = user.getRegion();
 

@@ -1,7 +1,12 @@
 package com.korit.moa.moa.entity.meetingGroup;
 
+import com.korit.moa.moa.entity.recommendation.Recommendation;
+import com.korit.moa.moa.entity.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Meeting_Groups")
@@ -31,14 +36,14 @@ public class MeetingGroup {
     @Column(name = "group_image")
     private String  groupImage;
 
-    @Column(nullable = false, length = 255, name = "group_supplies")
+    @Column(length = 255, name = "group_supplies")
     private String groupSupplies;
 
     @Column(nullable = false, name = "group_date")
     private String groupDate;
 
     @Column(nullable = false, name = "group_question")
-    private String group_question;
+    private String groupQuestion;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "group_category")
@@ -51,4 +56,7 @@ public class MeetingGroup {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "meeting_type")
     private MeetingTypeCategory meetingType;
+
+    @OneToMany(mappedBy = "meetingGroup", cascade = CascadeType.ALL)
+    private List<Recommendation> recommendation = new ArrayList<>();
 }

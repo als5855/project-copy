@@ -27,7 +27,7 @@ public class UserInfoController {
 
     // 사용자 정보 조회
     @GetMapping(USER_INFO_PATH)
-    public ResponseEntity<ResponseDto<ResponseUserDto>> findByUserId(@PathVariable String userId) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> findByUserId(@AuthenticationPrincipal @PathVariable String userId) {
         ResponseDto<ResponseUserDto> response = userService.findByUserId(userId);
         HttpStatus status = response.isResult() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
         return ResponseEntity.status(status).body(response);

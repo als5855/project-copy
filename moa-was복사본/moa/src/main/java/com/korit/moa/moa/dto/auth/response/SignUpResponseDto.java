@@ -8,40 +8,44 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpResponseDto {
 
-private String userId;
+    private String userId;
 
-private String password;
+    private String password;
 
-private Date userBirthDate;
+    private Date userBirthDate;
 
-private Gender userGender;
+    private Gender userGender;
 
-private String userName;
+    private String userName;
 
-private String nickName;
+    private String nickName;
 
-private Set<Hobby> hobbies ;
+    private Set<String> hobbies ;
 
-private String  profileImage;
+    private String  profileImage;
 
-private Region region;
+    private Region region;
 
-    public SignUpResponseDto(User user) {
-        this.userId = user.getUserId();
-        this.password = user.getPassword();
-        this.userBirthDate = user.getUserBirthDate();
-        this.userGender = user.getUserGender();
-        this.userName = user.getUserName();
-        this.nickName = user.getNickName();
-        this.profileImage = user.getProfileImage();
-        this.hobbies = user.getHobbies();
-        this.region = user.getRegion();
+        public SignUpResponseDto(User user) {
+            this.userId = user.getUserId();
+            this.password = user.getPassword();
+            this.userBirthDate = user.getUserBirthDate();
+            this.userGender = user.getUserGender();
+            this.userName = user.getUserName();
+            this.nickName = user.getNickName();
+            this.profileImage = user.getProfileImage();
+            this.hobbies = Arrays.stream(user.getHobbies().split(",")).collect(Collectors.toSet());
+            this.region = user.getRegion();
     }
 }

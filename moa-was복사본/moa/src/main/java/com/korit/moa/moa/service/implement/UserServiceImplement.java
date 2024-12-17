@@ -65,7 +65,7 @@ public class UserServiceImplement implements UserService {
                     .userGender((user.getUserGender()))
                     .userName(dto.getUserName())
                     .nickName(dto.getNickName())
-                    .hobbies(dto.getHobbies())
+                    .hobbies(String.join(",", dto.getHobbies()))
                     .profileImage(dto.getProfileImage())
                     .region(dto.getRegion())
                     .build();

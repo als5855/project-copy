@@ -1,5 +1,6 @@
 package com.korit.moa.moa.entity.user;
 
+import com.korit.moa.moa.entity.recommendation.Recommendation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
@@ -8,9 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "Users")
@@ -42,9 +41,8 @@ public class User {
     private String nickName;
 
     @Column(name = "hobby")
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Hobby> hobbies = new HashSet<>();
+//    @ElementCollection(fetch = FetchType.EAGER)
+    private String hobbies;
 
     @Column(name = "profile_image")
     private String profileImage;
@@ -52,4 +50,7 @@ public class User {
     @Column(name = "region")
     @Enumerated(EnumType.STRING)
     private Region region;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Recommendation> recommendation = new ArrayList<>();
 }

@@ -37,7 +37,7 @@ public class SignUpRequestDto {
     @NotNull
     private Date userBirthDate;
 
-    private Set<Hobby> hobbies;
+    private Set<String> hobbies;
 
     private String profileImage ;
 
