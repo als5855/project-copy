@@ -1,21 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import * as logo from "../../styles/LogoStyle";
 import logoImg from "../../images/moaLogo.png";
 import { useNavigate } from "react-router-dom";
 import userImg from "../../images/userImg.png";
 import { IoExtensionPuzzle, IoSearch, IoSearchCircle, IoSearchCircleOutline, IoSearchCircleSharp, IoSearchSharp } from "react-icons/io5";
-import { MdImageSearch, MdStickyNote2 } from "react-icons/md";
+import { MdImageSearch, MdKeyboardArrowDown, MdKeyboardArrowUp, MdStickyNote2 } from "react-icons/md";
 import { BsPuzzleFill } from "react-icons/bs";
 import userAuthStore from "../../stores/auth.store";
 import { useCookies } from "react-cookie";
 import SearchBar from "../SearchBar/SearchBar";
+import HobbyAndRegionCategory from "../SearchBar/HobbyAndRegionCategory";
 
 export default function InformationNaviBar() {
 
   const {nickName, profileImage, isAuthenticated, logout} = userAuthStore();
   const [cookies, setCookies] = useCookies(['token'])
+  const [button, setButton] = useState<boolean>(true);
+  const [category, setCategory] = useState<boolean>(false);
 
   useEffect(() => {
     if(!cookies.token) {
@@ -29,11 +32,15 @@ export default function InformationNaviBar() {
     logout();
   }
 
-  
+  const handleClickButton= () => {
+    setButton(prev => !prev);
+    setCategory(preve => ! preve)
+  }
 
 
   const navigator = useNavigate();
   return (
+    <div>
     <div css={s.infoNaviBar}>
       <div css={s.naviBox}>
         <div css={s.naviDiv}>
@@ -52,9 +59,14 @@ export default function InformationNaviBar() {
       </div>
       <div css={s.userInfoBox}>
         <div css={s.naviDiv} 
-        onClick={() => navigator('/keyword')}>
+        onClick={() => navigator('/search')}>
           <IoSearchSharp fontSize ='25px' />
         </div>
+      <button css = {s.categoryBtn} 
+        onClick={handleClickButton}
+      >
+        카테고리{button ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+      </button>
         {isAuthenticated ? (
           <>
             <div css={s.userImgBox}>
@@ -71,6 +83,10 @@ export default function InformationNaviBar() {
           <div onClick={() => navigator('/signIn')} css={s.signBtn}>로그인 & 회원가입</div>
         )}
       </div>
+      </div>{
+      category ? 
+      <HobbyAndRegionCategory/> : null
+      }
     </div>
   );
 }

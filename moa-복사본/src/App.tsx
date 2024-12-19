@@ -14,6 +14,7 @@ import { User } from "./types";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
 import SearchBar from "./layouts/SearchBar/SearchBar";
+import SearchResult from "./layouts/SearchBar/index";
 
 function App() {
   interface TokenUser {
@@ -54,7 +55,8 @@ function App() {
           <Routes>
             {/* 메인 영역 라우트 설정 */}
             <Route path="/" element={<Home />} />
-            <Route path="/keyword" element={<SearchBar />}/>
+            <Route path="/search" element={<SearchBar />}/>
+            <Route path="/search/searchResult" element={< SearchResult/>}/>
             <Route path="/review" element={<Review />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />

@@ -107,3 +107,8 @@ export const fontSt = css`
   color: #0a3140;
   font-size: 16px;
 `;
+
+export const categoryBtn = css`
+  background-color: rgba(0,0,0,0);
+  border: none;
+`

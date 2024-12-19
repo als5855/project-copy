@@ -43,3 +43,9 @@ export const searchInput = css`
   margin-bottom: 10px;
   &::placeholder {color: #ddd;}
 `;
+
+export const categorybox = css`
+  background-color: beige;
+  width: 500px;
+  /* height: 800px; */
+`
