@@ -32,6 +32,7 @@ export const searchBtn = css`
   background-color: rgba(0, 0, 0, 0);
   border: none;
   color: #777;
+  cursor: pointer;
 `
 
 export const searchInput = css`

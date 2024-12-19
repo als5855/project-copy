@@ -2,7 +2,6 @@
 import * as s from "./style";
 import axios from "axios";
 import React from "react";
-import { GroupCategory, Region } from "../../types";
 import useSearchStore from "../../stores/search.store";
 import { useNavigate } from "react-router-dom";
 
@@ -17,12 +16,12 @@ const HobbyAndRegionCategory = () => {
   const navigator = useNavigate();
 
   const handleHobbyFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const selectCategory = e.currentTarget.value as GroupCategory
+    const selectCategory = e.currentTarget.value;
     setGroupCategory(selectCategory);
   };
 
   const handleResionFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const selectCategory = e.currentTarget.value as Region
+    const selectCategory = e.currentTarget.value;
     setRegion(selectCategory);
   };
 
@@ -102,15 +101,6 @@ const HobbyAndRegionCategory = () => {
                 <button onClick={handlefetchCategoryBtn}>검색</button>
         </div>
       </div>
-        <div>
-        {/* {loading ? (
-          <p>검색중.....</p>
-        ) : isResults === null ? null : isResults === false ? (
-          <p>검색결과가 없습니다.</p>
-        ) : (
-          <SearchList />
-        )} */}
-        </div>
     </div>
   );
 };

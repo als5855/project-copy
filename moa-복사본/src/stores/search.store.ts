@@ -1,7 +1,6 @@
 
 import { create } from "zustand";
 import { MeetingGroup } from "../types";
-import SearchResult from "../layouts/SearchBar";
 
 interface SearchStore {
   groupCategory: string;
@@ -16,11 +15,15 @@ interface SearchStore {
   setIsResults: (isResults: boolean|null) => void;
   setLoading: (loading: boolean)=> void;
 
-  groupTitle: string;
+  keyword: string;
   searchResults: MeetingGroup[]; 
+  searchLoading: boolean;
+  searchKeyword: string;
 
-  setGroupTitle: (groupTitle: string) => void;
+  setKeyword: (groupTitle: string) => void;
   setSearchResults: (searchResults: MeetingGroup[]) => void;
+  setSearchLoading: (loading: boolean) => void;
+  setSearchKeyword: (searchKeyword: string) => void;
 }
 
 const useSearchStore = create<SearchStore>((set) => ({
@@ -31,15 +34,20 @@ const useSearchStore = create<SearchStore>((set) => ({
   loading:false,
 
   searchResults: [],
-  groupTitle: "",  
+  keyword: "", 
+  searchLoading: false, 
+  searchKeyword: "",
 
   setGroupCategory: (category) => set({ groupCategory: category }),
   setRegion: (region) => set({ region: region }),
   setResults: (results) => set({ results: results }),
   setIsResults: (isResults) => set({isResults: isResults}),
   setLoading: (loading) => set({loading: loading}),
+
   setSearchResults: (searchResults) => set({searchResults: searchResults}),
-  setGroupTitle: (groupTitle) => set({ groupTitle: groupTitle})
+  setKeyword: (groupTitle) => set({ keyword: groupTitle}),
+  setSearchLoading: (searchLoading) => set({searchLoading: searchLoading}),
+  setSearchKeyword: (searchKeyword) => set({searchKeyword: searchKeyword}),
 }));
 
 export default useSearchStore;
