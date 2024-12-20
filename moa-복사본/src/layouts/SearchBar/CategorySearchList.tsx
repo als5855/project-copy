@@ -2,7 +2,7 @@ import React from 'react'
 import { BsHeart } from 'react-icons/bs';
 import useSearchStore from '../../stores/search.store';
 
-function SearchList() {
+function CategorySearchList() {
   const results = useSearchStore((state) => state.results);
   const isResults = useSearchStore((state) => state.isResults);
   const loading = useSearchStore((state) => state.loading);
@@ -20,7 +20,7 @@ function SearchList() {
       </ul> 
       { loading ? (
         <p>검색중....</p>
-      ) : isResults === null ? null : isResults === false ? (
+      ) : isResults === null ? null : !isResults ? (
         <p>검색결과가 없습니다.</p>
       ) : (
       <ul>
@@ -28,6 +28,7 @@ function SearchList() {
           <li key={result.groupId}>
             <div>{result.groupImage}</div>
             <p>{result.groupTitle}</p>
+            <p>{result.groupDate}</p>
             <p>{result.groupAddress}</p>
             <div>
               <BsHeart />
@@ -41,4 +42,4 @@ function SearchList() {
   )
 }
 
-export default SearchList
+export default CategorySearchList

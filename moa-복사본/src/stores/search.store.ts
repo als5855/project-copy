@@ -19,11 +19,15 @@ interface SearchStore {
   searchResults: MeetingGroup[]; 
   searchLoading: boolean;
   searchKeyword: string;
+  searchAllResults: MeetingGroup[];
+  isSearchResults: boolean|null;
 
   setKeyword: (groupTitle: string) => void;
   setSearchResults: (searchResults: MeetingGroup[]) => void;
   setSearchLoading: (loading: boolean) => void;
   setSearchKeyword: (searchKeyword: string) => void;
+  setSearchAllResults: (searchAllResults: MeetingGroup[]) => void;
+  setIsSearchResults: (isSearchReuslts: boolean|null) => void;
 }
 
 const useSearchStore = create<SearchStore>((set) => ({
@@ -37,6 +41,8 @@ const useSearchStore = create<SearchStore>((set) => ({
   keyword: "", 
   searchLoading: false, 
   searchKeyword: "",
+  searchAllResults: [],
+  isSearchResults: null,
 
   setGroupCategory: (category) => set({ groupCategory: category }),
   setRegion: (region) => set({ region: region }),
@@ -48,6 +54,8 @@ const useSearchStore = create<SearchStore>((set) => ({
   setKeyword: (groupTitle) => set({ keyword: groupTitle}),
   setSearchLoading: (searchLoading) => set({searchLoading: searchLoading}),
   setSearchKeyword: (searchKeyword) => set({searchKeyword: searchKeyword}),
+  setSearchAllResults: (searchAllResults) => set({searchAllResults: searchAllResults}),
+  setIsSearchResults: (isSearchResults) => set({isSearchResults: isSearchResults}),
 }));
 
 export default useSearchStore;

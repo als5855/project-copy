@@ -1,15 +1,17 @@
 import React from 'react'
-import SearchBar from './SearchBar'
-import SearchCategoryGroupList from './SearchList'
-
-
+import SearchBar from './SearchBar';
+import { Route, Routes } from 'react-router-dom';
+import KeywordSearchGroupList from './KeywordSearchGroupList';
+import CategorySearchList from './CategorySearchList';
 
 function SearchResult() {
-
   return (
     <div>
-      <SearchBar />
-      <SearchCategoryGroupList />
+      <SearchBar/>
+      <Routes>
+        <Route path='/searchresult' element={<KeywordSearchGroupList />}/>
+        <Route path='/categoryresult' element={<CategorySearchList />} />
+      </Routes>
     </div>
   )
 }

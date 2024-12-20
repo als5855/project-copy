@@ -11,7 +11,7 @@ const HobbyAndRegionCategory = () => {
   const setResults = useSearchStore((state) => state.setResults);
   const setIsResults = useSearchStore((state) => state.setIsResults);
   const setLoading = useSearchStore((state) => state.setLoading);
-  const groupCategory = useSearchStore((state) => state.groupCategory)
+  const groupCategory = useSearchStore((state) => state.groupCategory);
   const region = useSearchStore((state) => state.region);
   const navigator = useNavigate();
 
@@ -35,7 +35,7 @@ const HobbyAndRegionCategory = () => {
   });
 
   const handlefetchCategoryBtn = async (e:React.MouseEvent<HTMLButtonElement>) => {
-    navigator('/search/searchResult')
+    navigator('/search/categoryresult')
     if(!groupCategory || !region){
       alert("카테고리와 지역을 모두 선택해주세요.");
       return;

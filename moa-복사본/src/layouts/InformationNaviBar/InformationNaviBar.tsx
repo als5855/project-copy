@@ -5,12 +5,11 @@ import * as logo from "../../styles/LogoStyle";
 import logoImg from "../../images/moaLogo.png";
 import { useNavigate } from "react-router-dom";
 import userImg from "../../images/userImg.png";
-import { IoExtensionPuzzle, IoSearch, IoSearchCircle, IoSearchCircleOutline, IoSearchCircleSharp, IoSearchSharp } from "react-icons/io5";
-import { MdImageSearch, MdKeyboardArrowDown, MdKeyboardArrowUp, MdStickyNote2 } from "react-icons/md";
+import { IoExtensionPuzzle, IoSearchSharp } from "react-icons/io5";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdStickyNote2 } from "react-icons/md";
 import { BsPuzzleFill } from "react-icons/bs";
 import userAuthStore from "../../stores/auth.store";
 import { useCookies } from "react-cookie";
-import SearchBar from "../SearchBar/SearchBar";
 import HobbyAndRegionCategory from "../SearchBar/HobbyAndRegionCategory";
 
 export default function InformationNaviBar() {
@@ -43,11 +42,11 @@ export default function InformationNaviBar() {
     <div>
     <div css={s.infoNaviBar}>
       <div css={s.naviBox}>
-        <div css={s.naviDiv}>
+        <div css={s.naviDiv} onClick={() => navigator('/grouptype/shorttype')}>
           <IoExtensionPuzzle color="#FF7B54" fontSize="25px" />{" "}
           <p css={s.fontSt}>단기 모임</p>
         </div>
-        <div css={s.naviDiv}>
+        <div css={s.naviDiv} onClick={() => navigator('/grouptype/regulartype')}>
           <BsPuzzleFill color="#FCD572" fontSize="25px" />{" "}
           <p css={s.fontSt}>정기 모임</p>
         </div>
