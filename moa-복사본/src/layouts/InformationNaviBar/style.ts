@@ -112,3 +112,20 @@ export const categoryBtn = css`
   background-color: rgba(0,0,0,0);
   border: none;
 `
+export const categoryBox = css`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  z-index: 2;
+  margin: 70px;
+`
+export const box = css`
+  /* border: 1px solid #333; */
+`
+
+export const mainContainer = css`
+  display: flex;
+  flex-direction: column;
+  border: 1px 
+`

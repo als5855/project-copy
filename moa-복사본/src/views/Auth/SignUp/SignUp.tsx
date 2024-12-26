@@ -66,7 +66,7 @@ export default function SignUp() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/profile/hobbies").then((response) => {
+    axios.get("http://localhost:8081/api/profile/hobbies").then((response) => {
       setHobbies(response.data.data);
     });
   }, []);
@@ -157,7 +157,7 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/profile",
+        "http://localhost:8081/api/profile",
         signUpForm,
         {
           headers: {

@@ -15,6 +15,7 @@ import userAuthStore from "./stores/auth.store";
 import SearchResult from "./layouts/SearchBar/index";
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
+import GetUserInfo from "./views/MyPage/GetUserInfo";
 
 function App() {
   interface TokenUser {
@@ -57,6 +58,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path='/grouptype/shorttype' element={<ShortGroup />}/>
             <Route path='/grouptype/regulartype' element={<RegularGroup />}/>
+            <Route path="/mypage" element={<GetUserInfo/>}/>
             <Route path="/search/*" element={<SearchResult/>}/>
             <Route path="/review" element={<Review />} />
             <Route path="/signUp" element={<SignUp />} />

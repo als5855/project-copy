@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import * as logo from "../../styles/LogoStyle";
 import logoImg from "../../images/moaLogo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import userImg from "../../images/userImg.png";
 import { IoExtensionPuzzle, IoSearchSharp } from "react-icons/io5";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdStickyNote2 } from "react-icons/md";
@@ -11,6 +11,7 @@ import { BsPuzzleFill } from "react-icons/bs";
 import userAuthStore from "../../stores/auth.store";
 import { useCookies } from "react-cookie";
 import HobbyAndRegionCategory from "../SearchBar/HobbyAndRegionCategory";
+import useSearchStore from "../../stores/search.store";
 
 export default function InformationNaviBar() {
 
@@ -33,13 +34,13 @@ export default function InformationNaviBar() {
 
   const handleClickButton= () => {
     setButton(prev => !prev);
-    setCategory(preve => ! preve)
+    setCategory(prev => !prev);
   }
 
 
   const navigator = useNavigate();
   return (
-    <div>
+    <div css={s.mainContainer}>
     <div css={s.infoNaviBar}>
       <div css={s.naviBox}>
         <div css={s.naviDiv} onClick={() => navigator('/grouptype/shorttype')}>
@@ -70,22 +71,29 @@ export default function InformationNaviBar() {
           <>
             <div css={s.userImgBox}>
             {!profileImage ? (
-              <img src={userImg} alt="userImage" css={s.userImg} />
+              <img src={userImg} alt="userImage" css={s.userImg} onClick={() => navigator('/mypage')} />
             ) : (
               <img src={profileImage} alt="profileImage" css={s.userImg} />
             )}
             </div>
-            <div css={s.userNameBox}>{nickName}</div>
+            <div css={s.userNameBox} onClick={() => navigator('/mypage')}>{nickName}</div>
             <div css={s.userNameBox} onClick={handleLogoutClick}>로그아웃</div>
           </>
         ) : (
           <div onClick={() => navigator('/signIn')} css={s.signBtn}>로그인 & 회원가입</div>
         )}
       </div>
-      </div>{
-      category ? 
-      <HobbyAndRegionCategory/> : null
-      }
+      </div>
+      <div css={s.categoryBox}>
+        <div></div>
+        <div></div>
+        {
+        category ?
+        <HobbyAndRegionCategory/>
+        :
+        null
+        } 
+      </div>
     </div>
   );
 }
