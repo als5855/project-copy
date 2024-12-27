@@ -5,10 +5,8 @@ import { BsHeart } from "react-icons/bs";
 import useHomeGroupStore from "../../stores/homeGroup.store";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import userAuthStore from "../../stores/auth.store";
 
 function AuthHomeGroup() {
-  const { userId, isAuthenticated } = userAuthStore();
   const results = useHomeGroupStore((state) => state.results);
   const setResults = useHomeGroupStore((state) => state.setResults);
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,7 +43,7 @@ function AuthHomeGroup() {
   const slices = [
     { start: 0, end: 3 },
     { start: 3, end: 6 },
-    { start: 6, end: 10 },
+    { start: 6, end: 9 },
   ];
 
   return (

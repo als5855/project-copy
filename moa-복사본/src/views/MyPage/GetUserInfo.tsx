@@ -95,6 +95,7 @@ function GetUserInfo() {
           <ul>
             <li><button>수정</button></li>
             <li><button>취소</button></li>
+            <li><button>탈퇴퇴</button></li>
           </ul>
         </li>
       </ul>

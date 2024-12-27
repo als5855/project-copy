@@ -62,3 +62,9 @@ export const category =css`
   box-sizing: border-box;
   color: white;
 `
+
+export const click =css`
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+`

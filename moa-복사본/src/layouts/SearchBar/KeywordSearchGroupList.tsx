@@ -3,12 +3,11 @@ import React from 'react'
 import useSearchStore from '../../stores/search.store'
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import * as s from './resultStyle'
-import useRecomendationStore from '../../stores/recomendation.store';
+// import useRecomendationStore from '../../stores/recomendation.store';
 import Recommendation from '../../components/recommendation/RecommendationsClick';
 import GetRecommendation from '../../components/recommendation/GetRecommendation';
 
 function KeywordSearchGroupList() {
-  const isLike = useRecomendationStore((state) => state.isLike);
   const results = useSearchStore((state) => state.searchAllResults)
   const loading = useSearchStore((state) => state.searchLoading);
   const isResults = useSearchStore((state) => state.isSearchResults);
@@ -30,7 +29,6 @@ function KeywordSearchGroupList() {
           <div css={s.listDetail}>
             <p css={s.content}>{result.groupTitle}</p>
             <p css={s.content}>
-              <Recommendation />
             </p>
           </div>
           <div css={s.listDetail}>

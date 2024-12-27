@@ -3,9 +3,6 @@ import * as s from "./style";
 import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
 import usePaginationScroll from '../../hooks/usePaginationScroll';
 
-
-
-
 function ShortGroup() {
   const { data, loading, resetAndFetchData } = usePaginationScroll({
     apiUrl: "http://localhost:8081/api/v1/auth/meeting-group/groupType",

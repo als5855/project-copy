@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SignInResponseDto } from "../../../types";
 import { useCookies } from "react-cookie";
-import userAuthStore from "../../../stores/auth.store";
 
 export default function SignIn() {
   const [userId, setUserId] = useState<string>("");
@@ -141,7 +140,7 @@ export default function SignIn() {
 
       <div css={s.innerBox}>
         <div css={s.linkBox}>
-          <a href="" css={s.linkText}>
+          <a href="/findUserId" css={s.linkText}>
             아이디찾기
           </a>
           <a href="" css={s.linkText}>

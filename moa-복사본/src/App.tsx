@@ -16,6 +16,7 @@ import SearchResult from "./layouts/SearchBar/index";
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import GetUserInfo from "./views/MyPage/GetUserInfo";
+import FindUserId from "./views/Auth/FindUserID/FindUserId";
 
 function App() {
   interface TokenUser {
@@ -63,6 +64,7 @@ function App() {
             <Route path="/review" element={<Review />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
+            <Route path="/findUserId" element={<FindUserId />} />
             <Route path="/review" element={<Review />} />
           </Routes>
         </MainContainer>

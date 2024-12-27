@@ -29,7 +29,7 @@ export interface MeetingGroup {
   groupDate: string;
   groupQuestion: string;
   groupCategory: GroupCategory;
-  groupTypeCategory: GroupTypeCategory;
+  groupType: GroupTypeCategory;
   meetingTypeCategory: MeetingTypeCategory;
 }
 
@@ -47,6 +47,7 @@ export interface RecommendationsId {
 }
 
 export interface Recommendation {
+  data: any;
   id: RecommendationsId;
   user: User;
   meetingGroup: MeetingGroup;

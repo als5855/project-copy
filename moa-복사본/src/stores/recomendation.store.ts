@@ -2,15 +2,20 @@ import { create } from "zustand";
 import { Recommendation, RecommendationsId } from "../types";
 
 interface RecomendationStore {
-  isLike: boolean;
-  setIsLike: () => void;
-
+  likedGroups: Recommendation[]; // 좋아요한 그룹 ID 목록
+  toggleLike: (groupId: number) => void;
 }
 
-const useRecomendationStore = create<RecomendationStore>((set) => ({
+// export const useRecomendationStore = create<RecomendationStore>(persist(set) => ({
+//   likedGroup: [],
+//   toggleLike: (groupId: any) => set((state: { likedGroup: any[]; }) => ({
+//     likeGroups : state.likedGroup.includes(groupId)
+//     ? state.likedGroup.filter((id: any) => id !== groupId)
+//     : [...state.likedGroup, groupId]
+//   }))
+// }));
 
-  isLike: false,
-  setIsLike: () => set((state) => ({ isLike: !state.isLike })),
-}));
 
-export default useRecomendationStore;
+function persist(set: any) {
+  throw new Error("Function not implemented.");
+}

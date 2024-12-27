@@ -1,65 +1,70 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './style'
-import React, { useEffect, useState } from 'react'
-import useRecomendationStore from '../../stores/recomendation.store';
-import { useCookies } from 'react-cookie';
-import axios from 'axios';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
-import { Recommendation, RecommendationsId } from '../../types';
+import * as s from "./style";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { Recommendation } from "../../types";
+import { colors } from "@mui/material";
 
-const RecommendationsClick = () => {
-  const isLike = useRecomendationStore((state) => state.isLike);
-  const setIsLike = useRecomendationStore((state) => state.setIsLike);
-  const recommendation = useState<Recommendation[]>([]);
-  const recommendationsId = useState<RecommendationsId>({
-    groupId: 0,
-    userId: ''
-  })
+interface RecommendationsClickProps {
+  groupId: number;
+  isLike: number[];
+  toggleLike: (groupId: number) => void;
+}
+
+const RecommendationsClick: React.FC<RecommendationsClickProps> = ({
+  groupId,
+  isLike,
+  toggleLike
+}) => {
   const [cookies] = useCookies(["token"]);
   
-  const handleHeart = (e:React.MouseEvent<HTMLButtonElement>) => {
-    setIsLike(); 
-    fetchData();
-  }
-
-
-  const fetchData = async() => {
-    if(cookies.token){
-      try{
-        if(isLike === false) {
-          const response = await axios.post(`http://localhost:8081/api/v1/recommendation`, {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-          });
-          const responseData = response.data.data;
+  const handleFetchData = async () => {
+    if (!cookies.token) {
+      alert("로그인 후 사용가능합니다.");
+      return;
+    }
+    if (cookies.token) {
+      try {
+        if (!isLike.includes(groupId)) {
+          await axios.post<Recommendation>(
+            `http://localhost:8081/api/v1/recommendation`,
+            { groupId },
+            {
+              headers: {
+                Authorization: `Bearer ${cookies.token}`,
+              },
+              withCredentials: true,
+            }
+          );
 
         } else {
-          const response = await axios.delete(`http://localhost:8081/api/v1/recommendation/user-id`, {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-          });
-
-          const responseData = response.data.data;
+          await axios.delete(
+            `http://localhost:8081/api/v1/recommendation/user-id`,
+            {
+              data: { groupId: groupId },
+              headers: {
+                Authorization: `Bearer ${cookies.token}`,
+              },
+              withCredentials: true,
+            }
+          );
         }
-        
-        
-      } catch(error) {
+        toggleLike(groupId);
+      } catch (error) {
         console.error(error);
       }
     }
-  } 
-
-
+  };
   return (
-    <div >
-      <button onClick={handleHeart} css={s.click}>
-      { isLike ? <BsHeartFill /> : <BsHeart />}</button>
+    <div>
+      <button onClick={handleFetchData} css={s.click}>
+        {isLike &&
+        isLike.map((groupId) =>  isLike.includes(groupId) ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />)}
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default RecommendationsClick
+export default RecommendationsClick;
