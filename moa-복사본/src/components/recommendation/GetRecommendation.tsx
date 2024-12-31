@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PaginationScroll from "../../hooks/usePaginationScroll";
+import PaginationScroll from "../../hooks/UsePaginationScroll";
 import { MeetingGroup } from "../../types";
 import axios from "axios";
 

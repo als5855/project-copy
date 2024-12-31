@@ -15,8 +15,8 @@ import userAuthStore from "./stores/auth.store";
 import SearchResult from "./layouts/SearchBar/index";
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
-import GetUserInfo from "./views/MyPage/GetUserInfo";
-import FindUserId from "./views/Auth/FindUserID/FindUserId";
+import FindUserId from "./views/Auth/FindUserID/index";
+import MyPage from "./views/MyPage/index";
 
 function App() {
   interface TokenUser {
@@ -56,15 +56,12 @@ function App() {
         <MainContainer>
           <Routes>
             {/* 메인 영역 라우트 설정 */}
-            <Route path="/" element={<Home />} />
-            <Route path='/grouptype/shorttype' element={<ShortGroup />}/>
-            <Route path='/grouptype/regulartype' element={<RegularGroup />}/>
-            <Route path="/mypage" element={<GetUserInfo/>}/>
-            <Route path="/search/*" element={<SearchResult/>}/>
+            <Route path="/*" element={<Home />} />
+            <Route path="/mypage/*" element={<MyPage/>}/>
             <Route path="/review" element={<Review />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
-            <Route path="/findUserId" element={<FindUserId />} />
+            <Route path="/findUserId/*" element={<FindUserId />} />
             <Route path="/review" element={<Review />} />
           </Routes>
         </MainContainer>

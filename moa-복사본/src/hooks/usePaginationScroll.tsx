@@ -10,7 +10,7 @@ interface PaginationScrollProps<T> {
   extraParams?: Record<string, string>;
 }
 
-function usePaginationScroll<T> ({ 
+function UsePaginationScroll<T> ({ 
   apiUrl,
   recommendationApiUrl,
   limit,
@@ -77,4 +77,4 @@ function usePaginationScroll<T> ({
     
 };
 
-export default usePaginationScroll
+export default UsePaginationScroll;

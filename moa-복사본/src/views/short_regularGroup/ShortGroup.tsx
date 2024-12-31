@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
-import usePaginationScroll from '../../hooks/usePaginationScroll';
+import usePaginationScroll from '../../hooks/UsePaginationScroll';
 
 function ShortGroup() {
   const { data, loading, resetAndFetchData } = usePaginationScroll({

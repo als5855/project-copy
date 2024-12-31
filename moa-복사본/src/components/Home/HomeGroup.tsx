@@ -1,28 +1,36 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as s from "./groupList/style";
 import { BsHeart } from "react-icons/bs";
 import useHomeGroupStore from "../../stores/homeGroup.store";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import userAuthStore from "../../stores/auth.store";
 
-function AuthHomeGroup() {
+function HomeGroup() {
+  const {userId} = userAuthStore();
   const results = useHomeGroupStore((state) => state.results);
   const setResults = useHomeGroupStore((state) => state.setResults);
   const loading = useHomeGroupStore((state) => state.loading);
   const setLoading = useHomeGroupStore((state) => state.setLoading);
-    const [cookies, setCookies] = useCookies(['token']);
+  const [cookies] = useCookies(['token']);
 
   const fetchData = async () => {
     setLoading(true);
     try {
       if(cookies.token) {
-      const response = await axios.get(
-        `http://localhost:8081/api/v1/meeting-group/group`
-      );
-      const groupData = response.data.data;
-      setResults(groupData);
-    }
+        const response = await axios.get(
+          `http://localhost:8081/api/v1/meeting-group/home-recommendation`
+        );
+        const groupData = response.data.data;
+        setResults(groupData);
+      } else {
+        const response = await axios.get(
+          `http://localhost:8081/api/v1/auth/meeting-group/group`
+        );
+        const groupData = response.data.data;
+        setResults(groupData);
+      }
     } catch (error) {
       console.log("Error fetching data: ", error);
     } finally {
@@ -83,4 +91,4 @@ function AuthHomeGroup() {
   );
 }
 
-export default AuthHomeGroup;
+export default HomeGroup;

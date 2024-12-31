@@ -4,11 +4,11 @@ import { Route, Routes } from 'react-router-dom';
 import KeywordSearchGroupList from './KeywordSearchGroupList';
 import CategorySearchList from './CategorySearchList';
 
-function SearchResult() {
+function index() {
   return (
     <div>
-      <SearchBar/>
       <Routes>
+        <Route path='/search' element={<SearchBar/>}/>
         <Route path='/searchresult' element={<KeywordSearchGroupList />}/>
         <Route path='/categoryresult' element={<CategorySearchList />} />
       </Routes>
@@ -16,4 +16,4 @@ function SearchResult() {
   )
 }
 
-export default SearchResult;
+export default index;
