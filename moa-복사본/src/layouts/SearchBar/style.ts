@@ -85,8 +85,3 @@ export const categorySearchBtn = css`
   border-radius: 5px;
   background-color: rgb(194, 189, 189);
 `
-
-// KewordSearchGroupList style
-export const keyword = css`
-  
-`

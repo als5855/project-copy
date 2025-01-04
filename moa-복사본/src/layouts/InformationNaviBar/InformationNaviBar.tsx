@@ -10,14 +10,14 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdStickyNote2 } from "react-ico
 import { BsPuzzleFill } from "react-icons/bs";
 import userAuthStore from "../../stores/auth.store";
 import { useCookies } from "react-cookie";
-import HobbyAndRegionCategory from "../SearchBar/HobbyAndRegionCategory";
+import HobbyAndRegionCategory from "../SearchBar/categorybar/HobbyAndRegionCategory";
 import useSearchStore from "../../stores/search.store";
 
 export default function InformationNaviBar() {
 
   const {nickName, profileImage, isAuthenticated, logout} = userAuthStore();
   const [cookies, setCookies] = useCookies(['token'])
-  const [button, setButton] = useState<boolean>(true);
+  const [button, setButton] = useState<boolean>(false);
   const [category, setCategory] = useState<boolean>(false);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function InformationNaviBar() {
       <button css = {s.categoryBtn} 
         onClick={handleClickButton}
       >
-        카테고리{button ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+        카테고리{button ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
       </button>
         {isAuthenticated ? (
           <>
@@ -89,7 +89,7 @@ export default function InformationNaviBar() {
         <div></div>
         {
         category ?
-        <HobbyAndRegionCategory/>
+        <HobbyAndRegionCategory />
         :
         null
         } 

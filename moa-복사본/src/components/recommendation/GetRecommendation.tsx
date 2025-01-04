@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PaginationScroll from "../../hooks/UsePaginationScroll";
+import PaginationScroll from "../../hooks/usePaginationScroll";
 import { MeetingGroup } from "../../types";
 import axios from "axios";
 
@@ -37,13 +37,7 @@ function GetRecommendation() {
   return (
     <div>
       <button onClick={handleRecommendationClick}>추천순</button>
-      {/* <PaginationScroll
-        results={results}
-        loading={loading}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-      /> */}
+    
     </div>
   );
 }

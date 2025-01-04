@@ -1,6 +1,6 @@
 import usePagination from '@mui/material/usePagination/usePagination';
 import React from 'react'
-import usePaginationScroll from '../../hooks/UsePaginationScroll';
+import usePaginationScroll from '../../hooks/usePaginationScroll';
 
 interface RecommendationPageProps {
   apiUrl: string;

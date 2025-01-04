@@ -5,14 +5,12 @@ import axios from 'axios';
 
 interface PaginationScrollProps<T> {
   apiUrl: string; // 기본 API URL
-  recommendationApiUrl?: string; // 추천순 API URL (선택적)
   limit: number; // 한 페이지의 데이터 수
   extraParams?: Record<string, string>;
 }
 
-function UsePaginationScroll<T> ({ 
+function usePaginationScroll<T> ({ 
   apiUrl,
-  recommendationApiUrl,
   limit,
   extraParams = {},
   }:PaginationScrollProps<T>) { 
@@ -23,13 +21,41 @@ function UsePaginationScroll<T> ({
   const [sortBy, setSortBy] = useState<string>("default");
 
   const fetchData = async (page: number) => {
+    if (loading) return;
     setLoading(true);
     try {
-        const api = sortBy === "recommendation" && recommendationApiUrl ? recommendationApiUrl : apiUrl;
-        const response = await axios.get(api, {
+        const response = await axios.get(apiUrl, {
           params: {page, limit, sortBy, ...extraParams },
         });
-        setData((prev) => [...prev, ...response.data.data]);
+        const newData = response.data.data;
+
+        const sortedData = [...newData].sort((a, b) => {
+          if (sortBy === "recent") {
+            // 최신순
+            const dateA = new Date(a.groupDate).getTime();
+            const dateB = new Date(b.groupDate).getTime();
+            return dateB - dateA;
+          } else if (sortBy === "recommendation") {
+            // 추천순
+            return b.recommendationCount - a.recommendationCount;
+          }else if (sortBy === "past"){
+            const dateA = new Date(a.groupDate).getTime();
+            const dateB = new Date(b.groupDate).getTime();
+            return dateA - dateB;
+          } else {
+            // 기본순(groupId순)
+            return a.groupId - b.groupId
+          }
+        });
+
+        // 중복출력 방지
+        setData((prev) => {
+          const combinedData = [...prev, ...sortedData];
+          const uniqueData = combinedData.filter(
+            (item, index, self) => self.findIndex((i) => i.groupId === item.groupId) === index);
+          return uniqueData;
+        });
+
         setTotalPages(response.data.totalPages || 1);
     } catch (error) {
       console.error("데이터 요청 중 오류:", error);
@@ -37,23 +63,18 @@ function UsePaginationScroll<T> ({
       setLoading(false);
     }
   };
-  
-  const resetAndFetchData = (newSortBy: string) => {
-    setSortBy(newSortBy);
+
+  // 페이지 스크롤을 통해 새로운 데이터 로드/정격 기준 변경
+  useEffect(() => {
     setData([]);
-    setCurrentPage(1);
-    fetchData(1);
-  };
-  
-
-  useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage]);
-
+  }, [currentPage, sortBy]);
+  
+  // 정렬기준 변경시 페이지 번호를 1로 초기화
   useEffect(() => {
-    if (sortBy) {
-      resetAndFetchData(sortBy);
-    }
+      setData([]);
+      setCurrentPage(1);
+      fetchData(1);
   }, [sortBy]);
 
   const handleScroll = () => {
@@ -65,16 +86,17 @@ function UsePaginationScroll<T> ({
     ) {
       setCurrentPage((prev) => prev + 1);
     }
-  };
+  };  
 
+  // 스크롤 이벤트를 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, currentPage, totalPages]);
 
 
-  return { data, loading, resetAndFetchData }
+  return { data, loading, resetAndFetchData: setSortBy }
     
 };
 
-export default UsePaginationScroll;
+export default usePaginationScroll;

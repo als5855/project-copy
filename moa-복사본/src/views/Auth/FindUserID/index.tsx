@@ -1,20 +1,17 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import FindUserId from './FindUserId'
-import FindUserIdProps from './FindUserIdProps'
-import useFindUserIdStore from '../../../stores/findUserId.store';
+import FindUserIdResult from './FindUserIdProps';
 
 function index() {
-  const result = useFindUserIdStore((state) => state.result);
   return (
     <div>
     <Routes>
     <Route path="/" element={<FindUserId />} />
-    <Route path="/result" element={<FindUserIdProps result={result}/>} />
+    <Route path="findUserId/:userName/:userBirthDate" element={<FindUserIdResult />} />
     </Routes>  
     </div>
   )
 }
 
-export default index
+export default index;

@@ -1,28 +1,48 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
-import { GroupCategory, GroupTypeCategory, MeetingGroup, MeetingTypeCategory, Recommendation } from '../../types';
+import { MeetingGroup, Recommendation } from '../../types';
 import * as s from './style'
-import RecommendationsClick from '../recommendation/RecommendationsClick';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+import useGroupStore from '../../stores/group.store';
+import { p } from '../../views/JoinGroup/style';
 
-interface PaginationScrollProps<T> {
-  data: MeetingGroup[];
+interface PaginationScrollProps {
+  datas: MeetingGroup[];
 }
 
-const PaginationScroll = <T extends {
-    groupId: number;
-    groupTitle: string;
-    groupAddress: string;
-    groupImage: string;
-    groupDate: string;
-    groupType: GroupTypeCategory;
-}>({ data }:PaginationScrollProps<T>) => {
-  
+const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
   const [likedGroups, setLikedGroups] = useState<number[]>([]);
   const [cookies] = useCookies(["token"]);
+  const navigator = useNavigate();
+
+  const handleOpenGroup = (group: MeetingGroup | null) => {
+    useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
+    navigator(`/group/join-group/${group?.groupId}`);
+  };
   
+  useEffect(() => {
+    async function fetchLikes() {
+      if(cookies.token) {
+        try{
+          const response = await axios.get('http://localhost:8081/api/v1/recommendation', {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            withCredentials: true,
+          });
+
+          const likedGroupIDs = response.data.data.map((item: {groupId: number}) => item.groupId);
+
+          setLikedGroups(likedGroupIDs);
+        } catch(error) {
+          console.error("찜 상태를 가져오는 중 오류 발생: ", error);
+        }
+      }
+    }
+    fetchLikes();
+  }, []);
+
   const toggleLike = (groupId: number) => {
     setLikedGroups((prev) => 
       prev.includes(groupId) ? prev.filter((id) => id !== groupId) : [...prev, groupId]);
@@ -65,29 +85,38 @@ const PaginationScroll = <T extends {
       }
     }
   };
+
   return (
     <div>
-      <ul css={s.categoryList}>
-      {data.map((result) => (
-        <li css={s.groupLi} key={result.groupId}>
-          <div><img src={result.groupImage} alt={result.groupImage} /></div>
-          <div css={s.line}></div>
-          <div css={s.listDetail}>
-            <p css={s.content}>{result.groupTitle}</p>
-            <p css={s.content}>
-              <button css={s.click} onClick={() => handleFetchData(result.groupId)}>
-                {likedGroups.includes(result.groupId) ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />}
-              </button>
-            </p>
-          </div>
-          <div css={s.listDetail}>
-          <p>{result.groupDate}</p>
-          <p>{result.groupAddress}</p>
-          <p>{result.groupType}</p>
-          </div>
-        </li>
-      ))}
-      </ul>
+      { 
+          datas.length > 0 ? 
+        <ul css={s.categoryList}>
+        {datas.map((data, index) => (
+          <li css={s.groupLi} key={index}>
+            <div>
+              <img src={data.groupImage} 
+              alt={data.groupImage} 
+              onClick={()=> handleOpenGroup(data)}/>
+              </div>
+            <div css={s.line}></div>
+            <div css={s.listDetail}>
+              <p css={s.content}>{data.groupTitle}</p>
+              <p css={s.content}>
+                <button css={s.click} onClick={() => handleFetchData(data.groupId)}>
+                  {likedGroups.includes(data.groupId) ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />}
+                </button>
+              </p>
+            </div>
+            <div css={s.listDetail}>
+            <p>{data.groupDate}</p>
+            <p>{data.groupAddress}</p>
+            </div>
+          </li>
+        ))}
+        </ul>
+        :
+        <p>검색결과를 찾을 수 없습니다.</p>
+        }
     </div>
   )
 }

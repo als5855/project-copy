@@ -12,11 +12,9 @@ import SignIn from "./views/Auth/SignIn/SignIn";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
-import SearchResult from "./layouts/SearchBar/index";
-import ShortGroup from "./views/short_regularGroup/ShortGroup";
-import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import FindUserId from "./views/Auth/FindUserID/index";
 import MyPage from "./views/MyPage/index";
+import Group from "./views/JoinGroup/index";
 
 function App() {
   interface TokenUser {
@@ -63,6 +61,7 @@ function App() {
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/findUserId/*" element={<FindUserId />} />
             <Route path="/review" element={<Review />} />
+            <Route path="/group/*" element={<Group />} />
           </Routes>
         </MainContainer>
       </RootContainer>

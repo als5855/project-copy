@@ -7,6 +7,7 @@ function DelelteUserInfoStart() {
   const [cookies, setCookies] = useCookies(['token', 'isChecked']);
   const navigate = useNavigate();
   
+  
   useEffect(() => {
     if (cookies.isChecked) {
       setIsChecked(cookies.isChecked);
@@ -50,7 +51,7 @@ function DelelteUserInfoStart() {
       :
       <div>
         <p>잘못된 접근방법입니다. 회원 탈퇴 확인 페이지로 이동하세요.</p>
-        <button onClick={() => navigate('/signIn')}>로그인인이동</button>
+        <button onClick={() => navigate('/signIn')}>로그인 이동</button>
       </div>
       }
     </div>
